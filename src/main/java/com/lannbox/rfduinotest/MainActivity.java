@@ -42,6 +42,8 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private ServiceConnection rfduinoServiceConnection;
 
     private Button enableBluetoothButton;
+    private Button bluetoothSettingsButton;
+    private LinearLayout settingsLayout;
     private TextView scanStatusText;
     private Button scanButton;
     private TextView deviceInfoText;
@@ -200,6 +202,23 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
                 enableBluetoothButton.setEnabled(false);
                 enableBluetoothButton.setText(
                         bluetoothAdapter.enable() ? "Enabling bluetooth..." : "Enable failed!");
+            }
+        });
+
+        // Settings
+        settingsLayout = (LinearLayout) findViewById(R.id.settingsLayout);
+
+        bluetoothSettingsButton = (Button) findViewById(R.id.bluetoothSettings);
+        bluetoothSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(settingsLayout.getVisibility() == View.VISIBLE){
+                    settingsLayout.setVisibility(View.GONE);
+                    bluetoothSettingsButton.setText("Show Bluetooth Settings");
+                } else {
+                    settingsLayout.setVisibility(View.VISIBLE);
+                    bluetoothSettingsButton.setText("Hide Bluetooth Settings");
+                }
             }
         });
 

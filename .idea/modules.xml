@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RFDuinoTest.iml" filepath="$PROJECT_DIR$/RFDuinoTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RFDuinoHRMon.iml" filepath="$PROJECT_DIR$/RFDuinoHRMon.iml" />
     </modules>
   </component>
 </project>
