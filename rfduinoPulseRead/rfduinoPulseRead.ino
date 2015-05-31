@@ -1,3 +1,8 @@
+//
+//    File: RfduinoPulseRead.ino
+//  Author: Ben.Andrews@gmail.com
+//    Date: 5/31/2015
+//
 #include <RFduinoBLE.h>
 #include "RunningMedian.h"
 
@@ -13,17 +18,12 @@ int val = 0;
 //
 // Filter setup
 //
-RunningMedian samples = RunningMedian(10);
-//int g_series[10];
-//int g_size = 10;
-//int g_pos = 0;
+RunningMedian rawData = RunningMedian(10);
 
 //
 // Function Defs
 //
 void bleSendString(String sendstring);
-//int ApplyFilter(int data);
-//int Median();
 
 void setup() {
   // put your setup code here, to run once:
@@ -35,48 +35,24 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  val = analogRead(analogPin);    // read the input pin
-  //Serial.println(val);          // debug value
-  
   // sample every 2 milliseconds
   RFduino_ULPDelay( 2 );
-
-  // send the sample over bluetooth
-  samples.add(val);
-  int m = (int)samples.getMedian();
-//  Serial.print("Median: ");
-//  Serial.println(m);
-//  Serial.print("Raw: ");
-//  Serial.println(val);
+  
+  // read the input pin
+  val = analogRead(analogPin);
+  
+  //
+  // Apply median filter
+  //
+  rawData.add(val);
+  int m = (int)rawData.getMedian();
+  
+  // send the data to bluetooth
   RFduinoBLE.sendInt(m);
 }
 
 void RFduinoBLE_onReceive(char *data, int len)
 {
-  // display the first recieved byte
+  // Display debug message
   Serial.println("Bar");
 }
-
-//int ApplyFilter(int data) {
-//    g_series[g_pos++] = data;
-//    g_pos = g_pos % g_size;
-//
-//    return Median();
-//}
-//
-//int Median() {
-//    int tempArray[g_size] = {};
-//    memcpy( tempArray, g_series, g_size );
-//
-//    Arrays.sort(tempArray);
-//    float median;
-//    if (tempArray.length % 2 == 0) {
-//        median = ( tempArray[tempArray.length / 2] + tempArray[tempArray.length / 2 - 1]) / 2;
-//    }
-//    else {
-//        median = tempArray[tempArray.length / 2];
-//    }
-//
-//    return median;
-//}
