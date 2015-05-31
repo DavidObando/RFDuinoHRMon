@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.UUID;
 //Test
 public class MainActivity extends Activity implements BluetoothAdapter.LeScanCallback {
+    final int GRAPH_BUFFER_SIZE=200;
+
     // State machine
     final private static int STATE_BLUETOOTH_OFF = 1;
     final private static int STATE_DISCONNECTED = 2;
@@ -178,7 +180,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         //
         plot = (XYPlot) findViewById(R.id.sensorXYPlot);
 
-        Number[] series1Numbers = {1,2,3,4,5};
+        Number[] series1Numbers = {};
 
         // Turn the above arrays into XYSeries':
         series3 = new SimpleXYSeries(
@@ -356,7 +358,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     @Override
     protected void onStart() {
         super.onStart();
-        Log.w("Main","onStart called");
+        Log.w("Main", "onStart called");
         registerReceiver(scanModeReceiver, new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED));
         registerReceiver(bluetoothStateReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
         registerReceiver(rfduinoReceiver, RFduinoService.getIntentFilter());
@@ -515,19 +517,15 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     }
 
     private void addData(byte[] data) {
-        View view = getLayoutInflater().inflate(android.R.layout.simple_list_item_2, dataLayout, false);
 
-        TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-        text1.setText(HexAsciiHelper.bytesToHex(data));
+        long longData = HexAsciiHelper.bytesToInt(data);
 
-        String ascii = HexAsciiHelper.bytesToAsciiMaybe(data);
-        if (ascii != null) {
-            TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-            text2.setText(ascii);
+        if(series3.size() > GRAPH_BUFFER_SIZE) {
+            series3.removeFirst();
         }
 
-        dataLayout.addView(
-                view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        series3.addLast(null, longData);
+        plot.redraw();
     }
 
     @Override

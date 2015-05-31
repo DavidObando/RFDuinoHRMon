@@ -78,4 +78,15 @@ public class HexAsciiHelper {
         }
         return bytes.buffer();
     }
+
+    public static long bytesToInt(byte[] data) {
+        long value = 0;
+        int length = data.length;
+        for (int i = 0; i < length; i++)
+        {
+            value += ((long) data[i] & 0xffL) << (8 * i);
+        }
+
+        return value;
+    }
 }

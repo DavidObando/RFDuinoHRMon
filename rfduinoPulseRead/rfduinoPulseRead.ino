@@ -19,14 +19,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  //val = analogRead(analogPin);    // read the input pin
-  //Serial.println(val);            // debug value
+  val = analogRead(analogPin);    // read the input pin
+  //Serial.println(val);          // debug value
   
-  // sample once per second
-  RFduino_ULPDelay( SECONDS(1) );
+  // sample every 10 milliseconds
+  RFduino_ULPDelay( 10 );
 
   // send the sample to the iPhone
-  RFduinoBLE.sendInt(1);
+  RFduinoBLE.sendInt(val);
 }
 
 void RFduinoBLE_onReceive(char *data, int len)
