@@ -2,6 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:1.0.0'
     }
@@ -9,6 +10,10 @@ buildscript {
 apply plugin: 'android'
 
 repositories {
+    flatDir{
+        dirs 'libs'
+    }
+
     mavenCentral()
 }
 
@@ -24,6 +29,7 @@ android {
 }
 
 dependencies {
+    compile(name:'androidplot-core-0.6.2-SNAPSHOT', ext:'aar')
     compile 'com.android.support:support-v4:18.0.0'
     compile "com.android.support:appcompat-v7:18.0.+"
 }

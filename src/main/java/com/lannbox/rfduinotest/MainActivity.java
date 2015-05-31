@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -21,6 +22,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.*;
+
+import java.util.Arrays;
 import java.util.UUID;
 //Test
 public class MainActivity extends Activity implements BluetoothAdapter.LeScanCallback {
@@ -61,6 +66,9 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private boolean connectionIsOld = false;
     private boolean fromNotification = false;
     private boolean serviceInForeground = false;
+
+    XYPlot plot;
+    SimpleXYSeries series3;
 
     private final BroadcastReceiver bluetoothStateReceiver = new BroadcastReceiver() {
         @Override
@@ -165,6 +173,24 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             }
         }
 
+        //
+        // Setup HR data plot
+        //
+        plot = (XYPlot) findViewById(R.id.sensorXYPlot);
+
+        Number[] series1Numbers = {1,2,3,4,5};
+
+        // Turn the above arrays into XYSeries':
+        series3 = new SimpleXYSeries(
+                Arrays.asList(series1Numbers),              // SimpleXYSeries takes a List so turn our array into a List
+                SimpleXYSeries.ArrayFormat.Y_VALS_ONLY,     // Y_VALS_ONLY means use the element index as the x value
+                "Bluetooth Data");                          // Set the display title of the series
+
+        // Create a formatter to use for drawing a series using LineAndPointRenderer
+        // and configure it from xml:
+        LineAndPointFormatter series3Format = new LineAndPointFormatter(Color.BLUE, null, null, null);
+
+        plot.addSeries(series3, series3Format);
 
         Intent inti = getIntent();
         int flags = inti.getFlags();
