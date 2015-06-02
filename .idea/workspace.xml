@@ -18,26 +18,12 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Unnamed-0" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f2066fd-a3a2-4119-ae5c-cc9d7748a907" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/HeartRateFilter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_audio.xml" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\rfduinoPulseRead\RunningMedian.cpp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\rfduinoPulseRead\RunningMedian.h" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\src\main\res\drawable-hdpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\src\main\res\drawable-mdpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\src\main\res\drawable-xhdpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\beandrew\Documents\class\CSEP590P\HW5\RFDuinoHRMon\src\main\res\drawable-xxhdpi\ic_launcher.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RFDuinoHRMon.iml" afterPath="$PROJECT_DIR$/RFDuinoHRMon.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/RFduinoService.java" afterPath="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/RFduinoService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfduinoPulseRead/rfduinoPulseRead.ino" afterPath="$PROJECT_DIR$/rfduinoPulseRead/rfduinoPulseRead.ino" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RFDuinoHRMon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.52577317">
-              <caret line="545" column="0" selection-start-line="545" selection-start-column="0" selection-end-line="545" selection-end-column="0" />
+              <caret line="498" column="57" selection-start-line="498" selection-start-column="57" selection-end-line="498" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4223#4262#0" expanded="true" />
@@ -789,10 +775,10 @@
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/HexAsciiHelper.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/HeartRateFilter.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/RFduinoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -1508,7 +1494,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/lannbox/rfduinotest/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.52577317">
-          <caret line="545" column="0" selection-start-line="545" selection-start-column="0" selection-end-line="545" selection-end-column="0" />
+          <caret line="498" column="57" selection-start-line="498" selection-start-column="57" selection-end-line="498" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4223#4262#0" expanded="true" />

@@ -506,40 +506,6 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         Log.w("Main","Updated UI to state " + state);
     }
 
-//    private int computeHR() {
-//        int pulseCount = 0;
-//        int min = 0;
-//        int max = 0;
-//        int threshold = 0;
-//        for(int i = 1; i < series3.size(); i++) {
-//            int prev = series3.getY(i-1).intValue();
-//            int next = series3.getY(i).intValue();
-//
-//            if(i == 1) {
-//                min = next;
-//                max = next;
-//            }
-//
-//            // Update dynamic threshold
-//            if(next > max)
-//                max = next;
-//
-//            if(next < min)
-//                min = next;
-//
-//            if(max == next || min == next)
-//                threshold = (((max - min) * 3 ) / 4) + min;
-//
-//            minText.setText(Integer.toString(min));
-//            maxText.setText(Integer.toString(max));
-//            thresholdText.setText(Integer.toString(threshold));
-//            if(prev <= threshold && next > threshold){
-//                pulseCount++;
-//            }
-//        }
-//        return (pulseCount * ((60 * 1000) / (WINDOW_BUFFER_SIZE * SAMPLE_RATE)));
-//    }
-
     private void addData(byte[] data) {
 
         long longData = HexAsciiHelper.bytesToInt(data);
