@@ -4,7 +4,7 @@
 //    Date: 5/31/2015
 //
 #include <RFduinoBLE.h>
-#include "RunningMedian.h"
+#include "MedianFilter.h"
 
 #define DEVICE_NAME "RFduino HR"
 #define SERVICE_UUID "00002220-0000-1000-8000-00805f9b34fb"
@@ -18,7 +18,7 @@ int val = 0;
 //
 // Filter setup
 //
-RunningMedian rawData = RunningMedian(10);
+MedianFilter medianFilter = MedianFilter(5);
 
 //
 // Function Defs
@@ -35,8 +35,8 @@ void setup() {
 }
 
 void loop() {
-  // sample every 2 milliseconds
-  RFduino_ULPDelay( 2 );
+  // sample every 50 milliseconds
+  RFduino_ULPDelay( 50 );
   
   // read the input pin
   val = analogRead(analogPin);
@@ -44,11 +44,13 @@ void loop() {
   //
   // Apply median filter
   //
-  rawData.add(val);
-  int m = (int)rawData.getMedian();
+  medianFilter.addData(val);
+  int median = (int)medianFilter.getMedian();
+  Serial.print("Median: ");
+  Serial.println(median);
   
   // send the data to bluetooth
-  RFduinoBLE.sendInt(m);
+  RFduinoBLE.sendInt(median);
 }
 
 void RFduinoBLE_onReceive(char *data, int len)

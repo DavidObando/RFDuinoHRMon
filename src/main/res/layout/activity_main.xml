@@ -181,12 +181,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data:"
-                android:id="@+id/textView8" />
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
@@ -195,15 +189,58 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:text="N/A"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="40sp"
+            android:textColor="#ff54a467"
+            android:textColorHighlight="#ff000000"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:id="@+id/heartRate" />
+
         <com.androidplot.xy.XYPlot
             android:id="@+id/sensorXYPlot"
             android:layout_width="wrap_content"
-            android:layout_height="390dp"
+            android:layout_height="250dp"
             android:layout_margin="5dp"
             android:layout_row="5"
             android:layout_column="0"
             android:layout_gravity="fill"
-            androidPlot.title="Sensor Plot"
+            androidPlot.title="Normalized Sensor Data"
+            androidPlot.domainLabel="Domain"
+            androidPlot.rangeLabel="Range"
+            androidPlot.titleWidget.labelPaint.textSize="10dp"
+            androidPlot.domainLabelWidget.labelPaint.textSize="10dp"
+            androidPlot.rangeLabelWidget.labelPaint.textSize="10dp"
+            androidPlot.graphWidget.marginTop="20dp"
+            androidPlot.graphWidget.marginLeft="15dp"
+            androidPlot.graphWidget.marginBottom="25dp"
+            androidPlot.graphWidget.marginRight="10dp"
+            androidPlot.graphWidget.rangeLabelPaint.textSize="10dp"
+            androidPlot.graphWidget.rangeOriginLabelPaint.textSize="10dp"
+            androidPlot.graphWidget.domainLabelPaint.textSize="10dp"
+            androidPlot.graphWidget.domainOriginLabelPaint.textSize="10dp"
+            androidPlot.legendWidget.textPaint.textSize="10dp"
+            androidPlot.legendWidget.iconSizeMetrics.heightMetric.value="15dp"
+            androidPlot.legendWidget.iconSizeMetrics.widthMetric.value="15dp"
+            androidPlot.legendWidget.heightMetric.value="25dp"
+            androidPlot.legendWidget.positionMetrics.anchor="right_bottom"
+            androidPlot.graphWidget.gridLinePaint.color="#000000" />
+
+        <com.androidplot.xy.XYPlot
+            android:id="@+id/sensorXYPlot2"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_margin="5dp"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            android:visibility="visible"
+            androidPlot.title="FFT"
             androidPlot.domainLabel="Domain"
             androidPlot.rangeLabel="Range"
             androidPlot.titleWidget.labelPaint.textSize="10dp"

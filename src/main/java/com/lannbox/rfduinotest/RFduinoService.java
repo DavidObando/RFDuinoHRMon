@@ -198,7 +198,7 @@ public class RFduinoService extends Service {
                     .setContentTitle("Bluetooth Data")
                     .setTicker("New Bluetooth Data Received")
                     .setContentText("Data:" + HexAsciiHelper.bytesToAsciiMaybe(characteristic.getValue()) + "\nOr: " + HexAsciiHelper.bytesToHex(characteristic.getValue()))
-                    .setSmallIcon(R.drawable.ic_launcher)
+                    //.setSmallIcon(R.drawable.ic_launcher)
 //                    .setLargeIcon(
                             //                          Bitmap.createScaledBitmap(icon, 128, 128, false))
                     .setAutoCancel(true)
@@ -508,7 +508,7 @@ public class RFduinoService extends Service {
                 .setContentTitle("Bluetooth Connection running")
                 .setTicker("BTLE Ticker")
                 .setContentText("RFDuino connected")
-                .setSmallIcon(R.drawable.ic_launcher)
+                //.setSmallIcon(R.drawable.ic_launcher)
 //                    .setLargeIcon(
                         //                          Bitmap.createScaledBitmap(icon, 128, 128, false))
                 .setContentIntent(pendingIntent)

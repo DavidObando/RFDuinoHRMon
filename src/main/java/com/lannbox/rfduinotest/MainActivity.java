@@ -27,9 +27,10 @@ import com.androidplot.xy.*;
 
 import java.util.Arrays;
 import java.util.UUID;
-//Test
+
 public class MainActivity extends Activity implements BluetoothAdapter.LeScanCallback {
-    final int GRAPH_BUFFER_SIZE=200;
+
+    final int WINDOW_BUFFER_SIZE = 200;
 
     // State machine
     final private static int STATE_BLUETOOTH_OFF = 1;
@@ -62,6 +63,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private Button sendValueButton;
     private Button clearButton;
     private LinearLayout dataLayout;
+    private TextView heartRateText;
 
     private RetainedFragment dataFragment;
     private boolean serviceBound;
@@ -69,8 +71,9 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     private boolean fromNotification = false;
     private boolean serviceInForeground = false;
 
-    XYPlot plot;
-    SimpleXYSeries series3;
+    private XYPlot plot1, plot2;
+    private SimpleXYSeries series3, series4;
+    private HeartRateFilter heartRateFilter;
 
     private final BroadcastReceiver bluetoothStateReceiver = new BroadcastReceiver() {
         @Override
@@ -107,34 +110,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             }
         }
     };
-/*
-    final private static String DEVICE_FOUND = "com.rfduino.DEVICE_FOUND";
-    private final BroadcastReceiver handlerServiceReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            Log.w("Main","handlerServiceReceiver called with " + action);
-            if (DEVICE_FOUND.equals(action)) {
-                final int rssi = intent.getIntExtra("rssi", 0);
-                final byte[] scanRecord = intent.getByteArrayExtra("scanRecord");
-                bluetoothDevice = service.getDevice();
-                scanning = false;
 
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        deviceInfoText.setText(
-                                BluetoothHelper.getDeviceInfoText(bluetoothDevice, rssi, scanRecord));
-                        updateUi();
-                    }
-                });
-
-            } else if (false) {
-            } else if (false) {
-            }
-        }
-    };
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,9 +152,16 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         }
 
         //
-        // Setup HR data plot
+        // Setup HR data
         //
-        plot = (XYPlot) findViewById(R.id.sensorXYPlot);
+        plot1 = (XYPlot) findViewById(R.id.sensorXYPlot);
+        plot2 = (XYPlot) findViewById(R.id.sensorXYPlot2);
+        heartRateText = (TextView) findViewById(R.id.heartRate);
+
+        //
+        // Initialize heart rate filter with window size 200
+        //
+        heartRateFilter = new HeartRateFilter(200);
 
         Number[] series1Numbers = {};
 
@@ -188,11 +171,18 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
                 SimpleXYSeries.ArrayFormat.Y_VALS_ONLY,     // Y_VALS_ONLY means use the element index as the x value
                 "Bluetooth Data");                          // Set the display title of the series
 
+        series4 = new SimpleXYSeries(
+                Arrays.asList(series1Numbers),
+                SimpleXYSeries.ArrayFormat.Y_VALS_ONLY,
+                "Red");
+
         // Create a formatter to use for drawing a series using LineAndPointRenderer
         // and configure it from xml:
-        LineAndPointFormatter series3Format = new LineAndPointFormatter(Color.BLUE, null, null, null);
+        LineAndPointFormatter series3Format = new LineAndPointFormatter(Color.CYAN, null, null, null);
+        LineAndPointFormatter series4Format = new LineAndPointFormatter(Color.BLUE, null, null, null);
 
-        plot.addSeries(series3, series3Format);
+        plot1.addSeries(series3, series3Format);
+        plot2.addSeries(series4, series4Format);
 
         Intent inti = getIntent();
         int flags = inti.getFlags();
@@ -516,16 +506,56 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
         Log.w("Main","Updated UI to state " + state);
     }
 
+//    private int computeHR() {
+//        int pulseCount = 0;
+//        int min = 0;
+//        int max = 0;
+//        int threshold = 0;
+//        for(int i = 1; i < series3.size(); i++) {
+//            int prev = series3.getY(i-1).intValue();
+//            int next = series3.getY(i).intValue();
+//
+//            if(i == 1) {
+//                min = next;
+//                max = next;
+//            }
+//
+//            // Update dynamic threshold
+//            if(next > max)
+//                max = next;
+//
+//            if(next < min)
+//                min = next;
+//
+//            if(max == next || min == next)
+//                threshold = (((max - min) * 3 ) / 4) + min;
+//
+//            minText.setText(Integer.toString(min));
+//            maxText.setText(Integer.toString(max));
+//            thresholdText.setText(Integer.toString(threshold));
+//            if(prev <= threshold && next > threshold){
+//                pulseCount++;
+//            }
+//        }
+//        return (pulseCount * ((60 * 1000) / (WINDOW_BUFFER_SIZE * SAMPLE_RATE)));
+//    }
+
     private void addData(byte[] data) {
 
         long longData = HexAsciiHelper.bytesToInt(data);
 
-        if(series3.size() > GRAPH_BUFFER_SIZE) {
+        if(series3.size() > WINDOW_BUFFER_SIZE) {
             series3.removeFirst();
         }
 
         series3.addLast(null, longData);
-        plot.redraw();
+        heartRateFilter.InputData(longData);
+        series4.setModel(Arrays.asList(heartRateFilter.ComputeFFT()), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
+        String hrString = Integer.toString(heartRateFilter.HeartRate);
+        heartRateText.setText(hrString);
+
+        plot1.redraw();
+        plot2.redraw();
     }
 
     @Override

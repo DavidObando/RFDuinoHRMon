@@ -32,4 +32,6 @@ dependencies {
     compile(name:'androidplot-core-0.6.2-SNAPSHOT', ext:'aar')
     compile 'com.android.support:support-v4:18.0.0'
     compile "com.android.support:appcompat-v7:18.0.+"
+    compile files('libs/gdx-audio.jar')
+    compile files('libs/gdx.jar')
 }
