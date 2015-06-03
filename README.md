@@ -11,6 +11,8 @@ Implementation details:
 - Arduino samples data every 50ms (In order to keep computations at real time)
 - Arduino does median filtering on a window size of 5 (can be adjusted)
 - Java code is built off the Bluetooth test code (https://github.com/lann/RFDuinoTest) with the following modifications
+   + Added arduino code for btle
+   + Updated some of the btle communication code
    + Added graphing library
    + Added FFT library
    + Updated UI to hide the Bluetooth connection settings
